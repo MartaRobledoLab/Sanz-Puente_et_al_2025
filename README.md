@@ -1,9 +1,9 @@
 ## Github Repository for
 # Seed-mediated vertical transmission of Pantoea core endophytes
-### by Irene Sanz-Puente, Santiago Redondo-Salvo, Gloria Torres-Cortés, María de Toro, Susana Fernandes, Andreas Börner, Óscar Lorenzo, Fernando de la Cruz, and Marta Robledo.
+#### by Irene Sanz-Puente, Santiago Redondo-Salvo, Gloria Torres-Cortés, María de Toro, Susana Fernandes, Andreas Börner, Óscar Lorenzo, Fernando de la Cruz, and Marta Robledo.
 
-Repository associated with the analysis used in Sanz-Puente et al., 2025, focus on the metabarcoding analysis of wheat bacterial endophytic community (doi: https://doi.org/10.1101/2025.01.06.628327). <i>This work is under review.</i> 
-
+Repository associated with the analysis used in Sanz-Puente et al., 2025, focus on the metabarcoding analysis of wheat bacterial endophytic community (doi: https://doi.org/10.1101/2025.01.06.628327). 
+<i>This work is under review.</i> 
 
 ## 📂 Repository structure
 - `data/`: Files containing the metadata, ASV sequences table and taxonomy table data are provided here 
@@ -13,7 +13,7 @@ Repository associated with the analysis used in Sanz-Puente et al., 2025, focus 
   - `qPCR.R` – data processing, statistical tests and visualizations  
 - `results/`: figures and tables generated from the analysis
 
-## 🧪 Reproducing the analysis
+## 🖥️ Reproducing the analysis
 ### Running the pipeline
 Raw read sequences of this study have been deposited in the NCBI Sequence Read Archive (RSA) under the BioProject accession number PRJNAXXX. Other data used in the analysis can be found in the Supplementary material of the paper or as data frame in scripts.
 ```bash
@@ -37,3 +37,7 @@ rvg             # Vector graphics export (e.g., for Word/PowerPoint)
 tidyverse       # Data wrangling and visualization (includes dplyr, ggplot2, etc.)
 vegan           # Community ecology and multivariate statistics
 ````
+
+#### Citation
+If you use this repository or its contents, please cite:
+Sanz-Puente et al. (2025). Seed-mediated vertical transmission of Pantoea core endophytes. bioRxiv. https://doi.org/10.1101/2025.01.06.628327v1

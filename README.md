@@ -2,23 +2,20 @@
 # Seed-mediated vertical transmission of Pantoea core endophytes
 ### by Irene Sanz-Puente, Santiago Redondo-Salvo, Gloria Torres-Cortés, María de Toro, Susana Fernandes, Andreas Börner, Óscar Lorenzo, Fernando de la Cruz, and Marta Robledo.
 
-Repository associated with the analysis used in Sanz-Puente et al., 2025, focus on the metabarcoding analysis of wheat bacterial endophytic community (doi: https://doi.org/10.1101/2025.01.06.628327). <i>This work is in review.</i> 
- 
+Repository associated with the analysis used in Sanz-Puente et al., 2025, focus on the metabarcoding analysis of wheat bacterial endophytic community (doi: https://doi.org/10.1101/2025.01.06.628327). <i>This work is under review.</i> 
 
-Files containing the metadata, ASV sequences table and taxonomy table data are provided here. Other data used in the analysis can be found in the Supplementary material of the paper or as data frame in scripts.
 
 ## 📂 Repository structure
-- `data/raw/`: raw sequencing data (e.g., FASTQ files), sample metadata  
+- `data/`: Files containing the metadata, ASV sequences table and taxonomy table data are provided here 
 - `scripts/`: bioinformatics and statistical analysis  
-  - `preprocess.sh` – read quality control and trimming  
-  - `taxonomy.R` – taxonomic profiling with *phyloseq*, *vegan*  
-  - `statistics.R` – statistical tests and visualizations  
-- `results/`: figures and tables generated from the analysis  
-- `docs/`: notes and sample outputs
+  - `qiime.sh` – read quality control and trimming  
+  - `Metabarcoding_analysis.R` – taxonomic profiling, statistical tests and visualizations   
+  - `qPCR.R` – data processing, statistical tests and visualizations  
+- `results/`: figures and tables generated from the analysis
 
 ## 🧪 Reproducing the analysis
 ### Running the pipeline
-Raw read sequences of this study have been deposited in the NCBI Sequence Read Archive (RSA) under the BioProject accession number PRJNAXXX.
+Raw read sequences of this study have been deposited in the NCBI Sequence Read Archive (RSA) under the BioProject accession number PRJNAXXX. Other data used in the analysis can be found in the Supplementary material of the paper or as data frame in scripts.
 ```bash
 bash scripts/preprocess.sh data/raw/*.fastq -o data/processed/
 ````

@@ -5,7 +5,7 @@
 Repository associated with the analysis used in Sanz-Puente et al., 2025, focus on the metabarcoding analysis of wheat bacterial endophytic community (doi: https://doi.org/10.1101/2025.01.06.628327). 
 <i>This work is under review.</i> 
 
-## 📂 Repository structure
+## Repository structure
 - `data/`: Files containing the metadata, ASV sequences table and taxonomy table data are provided here 
 - `scripts/`: bioinformatics and statistical analysis  
   - `qiime.sh` – read quality control and trimming  
@@ -13,7 +13,7 @@ Repository associated with the analysis used in Sanz-Puente et al., 2025, focus 
   - `qPCR.R` – data processing, statistical tests and visualizations  
 - `results/`: figures and tables generated from the analysis
 
-## 🖥️ Reproducing the analysis
+## Data analysis
 ### Running the pipeline
 Raw read sequences of this study have been deposited in the NCBI Sequence Read Archive (RSA) under the BioProject accession number PRJNAXXX. Other data used in the analysis can be found in the Supplementary material of the paper or as data frame in scripts.
 ```bash

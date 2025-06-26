@@ -15,7 +15,7 @@ Repository associated with the analysis used in Sanz-Puente et al., 2025, focus 
 
 ## Data analysis
 ### Running the pipeline
-Raw read sequences of this study have been deposited in the NCBI Sequence Read Archive (RSA) under the BioProject accession number PRJNAXXX. Other data used in the analysis can be found in the Supplementary material of the paper or as data frame in scripts.
+Raw read sequences of this study have been deposited in the NCBI Sequence Read Archive (RSA) under the BioProject accession number PRJNA1282304. Other data used in the analysis can be found in the Supplementary material of the paper or as data frame in scripts.
 ```bash
 bash scripts/preprocess.sh data/raw/*.fastq -o data/processed/
 ````

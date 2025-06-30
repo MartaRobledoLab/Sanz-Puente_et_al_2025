@@ -41,7 +41,6 @@ bash Script/pipeline.sh
 ```r
 biomformat      # Handling BIOM format files
 ComplexUpset    # Advanced UpSet plots for set intersections
-FSA             # Fisheries Stock Analysis, used for Dunn’s test
 ggplot2         # Core plotting library
 ggsci           # Scientific journal themes for ggplot2
 ggsignif        # Significance annotations for ggplot2
@@ -50,7 +49,6 @@ pairwiseAdonis  # Pairwise comparisons for PERMANOVA
 phyloseq        # Microbiome data analysis
 pheatmap        # Pretty heatmaps
 reshape2        # Data reshaping
-rvg             # Vector graphics export (e.g., for Word/PowerPoint)
 tidyverse       # Data wrangling and visualization (includes dplyr, ggplot2, etc.)
 vegan           # Community ecology and multivariate statistics
 ````

@@ -22,7 +22,7 @@ Raw read sequences of this study have been deposited in the NCBI Sequence Read A
 bash Script/pipeline.sh
 ````
 ### Requirements
-####- Qiime2 2025.04
+#### Qiime2 2025.04
 
   Download base Qiime2 amplicon distribution environment file:
   ```bash
@@ -33,13 +33,15 @@ bash Script/pipeline.sh
   ```bash
   micromamba create q2-ampl-2025_4 -f q2-ampl-2025_4.environment.yml --channel-priority flexible
   ```
-####- FastQC:
+#### FastQC:
 
   FastQC environment installed with:
   ```bash
   micromamba create -n fastqc -c conda-forge -c bioconda fastqc multiqc
   ```
-- R (>= 4.2) with the following packages:  
+#### R 
+
+R (>= 4.2) with the following packages:  
 ```r
 biomformat      # Handling BIOM format files
 ComplexUpset    # Advanced UpSet plots for set intersections

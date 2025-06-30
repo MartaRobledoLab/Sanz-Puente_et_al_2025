@@ -22,7 +22,7 @@ Raw read sequences of this study have been deposited in the NCBI Sequence Read A
 bash Script/pipeline.sh
 ````
 ### Requirements
-- Qiime2 2025.04
+####- Qiime2 2025.04####
   Download base Qiime2 amplicon distribution environment file:
   ```bash
   curl https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2025.4/amplicon/released/qiime2-amplicon-ubuntu-latest-conda.yml > q2-ampl-2025_4.environment.yml
@@ -32,7 +32,7 @@ bash Script/pipeline.sh
   ```bash
   micromamba create q2-ampl-2025_4 -f q2-ampl-2025_4.environment.yml --channel-priority flexible
   ```
-- FastQC:
+####- FastQC:####
   FastQC environment installed with:
   ```bash
   micromamba create -n fastqc -c conda-forge -c bioconda fastqc multiqc
@@ -44,7 +44,6 @@ ComplexUpset    # Advanced UpSet plots for set intersections
 ggplot2         # Core plotting library
 ggsci           # Scientific journal themes for ggplot2
 ggsignif        # Significance annotations for ggplot2
-officer         # Exporting Word documents from R
 pairwiseAdonis  # Pairwise comparisons for PERMANOVA
 phyloseq        # Microbiome data analysis
 pheatmap        # Pretty heatmaps

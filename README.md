@@ -23,6 +23,7 @@ bash Script/pipeline.sh
 ````
 ### Requirements
 ####- Qiime2 2025.04####
+
   Download base Qiime2 amplicon distribution environment file:
   ```bash
   curl https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2025.4/amplicon/released/qiime2-amplicon-ubuntu-latest-conda.yml > q2-ampl-2025_4.environment.yml
@@ -33,6 +34,7 @@ bash Script/pipeline.sh
   micromamba create q2-ampl-2025_4 -f q2-ampl-2025_4.environment.yml --channel-priority flexible
   ```
 ####- FastQC:####
+
   FastQC environment installed with:
   ```bash
   micromamba create -n fastqc -c conda-forge -c bioconda fastqc multiqc

@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 # Cargar paquetes
 library(tidyverse)
 library(ggsignif)

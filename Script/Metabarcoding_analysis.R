@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 library(phyloseq)
 library(tidyverse)
 library(biomformat)
@@ -6,7 +8,6 @@ library(ggplot2)
 library(ComplexUpset)
 library(reshape2)
 library(ggsci)
-library(FSA)
 library(pairwiseAdonis)
 library(microbiomeMarker)
 

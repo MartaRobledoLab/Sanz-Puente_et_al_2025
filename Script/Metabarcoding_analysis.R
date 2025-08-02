@@ -99,6 +99,7 @@ print(variance_explained)
 ps_seedg<- subset_samples(ps_genus, Seed == "Yes") # Filtrar para quedarte solo con las muestras tipo "Seed"
 ps_seed_rel <- transform_sample_counts(ps_seedg, function(x) x / sum(x)) #Convertir a abundancia relativa
 df <- psmelt(ps_seed_rel) #Pasar a data frame
+df$Abundance <- df$Abundance * 100
 df$Genus <- gsub("^g__", "", df$Genus)# Eliminar el prefijo 'g__' de los nombres de géneros
 genus_mean <- df %>%
   group_by(Genus) %>%
@@ -152,7 +153,7 @@ p<-ggplot(df, aes(x = SampleName, y = Abundance, fill = Genus_filtered)) +
   scale_fill_manual(values = Genus.palette) + 
   labs(
     x = "Sample",
-    y = "Relative Abundance",
+    y = "Relative Abundance (%)",
     fill = "Genus"
     #title = "Top 15 Genera present in Seeds"
   )
@@ -911,4 +912,5 @@ p<- ggplot(df_heat, aes(x = taxon, y = enrich_group, fill = ef_lda)) +
     legend.position = "right"
   )
 p
+
 

@@ -280,7 +280,7 @@ p
 otu <- otu_table(ps_seed)
 
 otu_PA <- 1*((otu>0)==1)                                               # presence-absence data
-otu_occ <- rowSums(otu_PA)/ncol(otu_PA)                                # occupancy calculation
+otu_occ <- rowSums(otu_PA)/ncol(otu_PA)*100                            # occupancy calculation in percentage
 otu_rel <- apply(decostand(otu, method="total", MARGIN=2),1, mean)     # mean relative abundance
 occ_abun <- data.frame(otu_occ=otu_occ, otu_rel=otu_rel) %>%           # combining occupancy and abundance data frame
   rownames_to_column('otu')
@@ -721,7 +721,7 @@ TukeyHSD(anova_result)
 otu <- otu_table(ps_field)
 
 otu_PA <- 1*((otu>0)==1)                                               # presence-absence data
-otu_occ <- rowSums(otu_PA)/ncol(otu_PA)                                # occupancy calculation
+otu_occ <- rowSums(otu_PA)/ncol(otu_PA)*100                            # occupancy calculation in percentage
 otu_rel <- apply(decostand(otu, method="total", MARGIN=2),1, mean)     # mean relative abundance
 occ_abun <- data.frame(otu_occ=otu_occ, otu_rel=otu_rel) %>%           # combining occupancy and abundance data frame
   rownames_to_column('otu')
@@ -756,8 +756,6 @@ features_a_buscar <- c(
 ) #para buscar los puntos q aparecen como abundancia-ocupancy distribution
 resultados <- taxa[taxa$Feature.ID %in% features_a_buscar, c("Feature.ID", "Taxon")] # Filtrar el data.frame para quedarte solo con esos Feature.ID
 print(resultados) # Imprimir resultados
-
-
 
 #----FIELD Enrichment----
 selected_genera <- c("Pantoea", "Sphingomonas", "Pseudomonas",
@@ -913,3 +911,4 @@ p<- ggplot(df_heat, aes(x = taxon, y = enrich_group, fill = ef_lda)) +
     legend.position = "right"
   )
 p
+

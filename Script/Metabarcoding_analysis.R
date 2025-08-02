@@ -121,20 +121,20 @@ df$Sample <- sample_data(ps_seed_rel)$sample_id[match(df$Sample, rownames(sample
 
 Genus.palette <- c(
   'Pantoea' = "#e41a1c",                       # Rojo fuerte (original)
-  'Pseudomonas' = "#ffffbf",                   # Amarillo fuerte (original)
-  'Staphylococcus' = "#d9ef8b",                # Verde amarillento (original)
-  'Sphingomonas' = "#fee08b",                  # Amarillo pálido (original)
-  'Bacteroides' = "#3288bd",                   # Azul claro (original)
   'Curtobacterium' = "#fc8d59",                # Naranja claro (original)
-  'Massilia' = "#b695c0",                      # Lila (nuevo, similar a azul/rosa)
-  'Haemophilus' = "#7FFFD4",                   # Aquamarine (nuevo, verde azulado)
-  'Paenibacillus' = "#9e0142",                 # Magenta oscuro (original)
-  'Hymenobacter' = "#B57EDC",                  # Lavanda (nuevo, violeta claro)
-  'Streptococcus' = "#4CAF50",                 # Verde bosque (nuevo, similar a Enterobacter)
+  'Staphylococcus' = "#d9ef8b",                # Verde amarillento (original)
+  'Pseudomonas' = "#ffffbf",                   # Amarillo fuerte (original)
   'Enterobacter' = "#91cf60",                  # Verde medio (original)
-  'Afipia' = "#9966CC",                        # Amatista (nuevo, violeta intermedio)
-  'Rhizobium' = "darkgreen",                   # Verde pasto (original)
-  'Methylobacterium-Methylorubrum' = "#de77ae", # Rosa claro (tomado de Rhodanobacter original)
+  'Sphingomonas' = "#fee08b",                  # Amarillo pálido (original)
+  'Nocardioides'     = "#8DA0CB",
+  'Paenibacillus' = "#9e0142",                 # Magenta oscuro (original)
+  'Bacteroides' = "#3288bd",                   # Azul claro (original)
+  'Nevskia' = "#b695c0",                      # Lila (nuevo, similar a azul/rosa)
+  'Sanguibacter' = "#7FFFD4",                   # Aquamarine (nuevo, verde azulado)
+  'Veillonella' = "yellow",                  # Lavanda (nuevo, violeta claro)
+  'Rhizobium' = "darkgreen",                 # Verde bosque (nuevo, similar a Enterobacter)
+  'Kocuria' = "pink",                        # Amatista (nuevo, violeta intermedio)
+  'Rhodanobacter' = "#de77ae", # Rosa claro (tomado de Rhodanobacter original)
   "Other" ="#E0E0E0"
 )
 p<-ggplot(df, aes(x = SampleName, y = Abundance, fill = Genus_filtered)) +
@@ -432,6 +432,7 @@ sample_meta <- as.data.frame(sample_data(ps_gno_rel))
 plant_order <- c("Seed", "Root", "Shoot")
 sample_meta$PlantPart <- factor(sample_meta$PlantPart, levels = plant_order)
 df <- psmelt(ps_gno_rel)
+df$Abundance <- df$Abundance * 100                                      
 df$Genus <- gsub("^g__", "", df$Genus)
 df$SampleName <- sample_meta$SampleName[match(df$Sample, rownames(sample_meta))]
 df$PlantPart <- sample_meta$PlantPart[match(df$Sample, rownames(sample_meta))]
@@ -495,7 +496,7 @@ p <- ggplot(df, aes(x = SampleName, y = Abundance, fill = Genus_filtered)) +
   scale_fill_manual(values = Genus.palette) + 
   labs(
     x = "Sample",
-    y = "Relative Abundance",
+    y = "Relative Abundance (%)",
     fill = "Genus"
   )
 
@@ -585,6 +586,7 @@ ps_field_g<- subset_samples(ps_genus, Field == "Yes") # Filtrar para quedarte so
 ps_filtered_rel <- transform_sample_counts(ps_field_g, function(x) x / sum(x))
 df <- psmelt(ps_filtered_rel) %>%                          # Sample × Genus × Abundance
   mutate(Genus = sub("^g__", "", Genus))                   # drop g__ prefix
+df$Abundance <- df$Abundance * 100                                           
 top_genera <- df %>% 
   group_by(Genus) %>% 
   summarise(mean_abund = mean(Abundance), .groups = "drop") %>% 
@@ -652,7 +654,7 @@ ggplot(df_summary,
                     breaks = ordered_levels,   # respeta el orden
                     drop   = FALSE) +          # no abandona niveles sin datos
   labs(x = "Plant tissue",
-       y = "Mean relative abundance",
+       y = "Mean relative abundance (%)",
        fill = "Genus") +
   theme_light(base_size = 18) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
@@ -680,30 +682,40 @@ df_pantoea_percent <- df_pantoea %>%
 print(df_pantoea_percent)
 
 #----Field Alfa_Diversity--
-# Asegurémonos de que la columna "Wheat_specie" esté presente en los metadatos
-sample_data(ps_field)$PlantPart <- factor(sample_data(ps_field)$PlantPart, 
-                                         levels=c("Soil" ,"Root", "Shoot", 
-                                                  "Spike", "Seed"))
-p <- plot_richness(ps_field, x = "PlantPart", measures = "Shannon", color = "PlantPart") +
-  geom_boxplot(alpha = 0.6, width = 0.5) + 
+df_shannon <- estimate_richness(ps_field, measures = "Shannon")
+df_shannon$Sample <- rownames(df_shannon)
+#Extraer metadatos y unir
+meta <- data.frame(sample_data(ps_field))
+meta$Sample <- rownames(meta)
+df <- merge(df_shannon, meta, by = "Sample")
+#Asegurar orden deseado
+df$PlantPart <- factor(df$PlantPart, levels = c("Soil", "Root", "Shoot", "Spike", "Seed"))
+
+#Graficar
+p <- ggplot(df, aes(x = PlantPart, y = Shannon)) +
+  geom_boxplot(aes(color = PlantPart),
+               fill = "white", width = 0.5, alpha = 0.6, outlier.shape = NA) +
+  geom_jitter(aes(color = PlantPart, shape = WheatSpecies), size = 3, width = 0.15) +
+  scale_color_manual(values = c("Soil" = "#0F6B99", 
+                                "Root" = "#FFA500", 
+                                "Shoot" = "#6B990F", 
+                                "Spike" = "#FFDB58",
+                                "Seed" = "#99540F")) +
   theme_bw() +
   theme(
-    legend.position = "none",
-    axis.text.x = element_text(face = "plain", size = 16, family = "Arial"),  # Cambia el tamaño del texto del eje x
-    axis.text.y = element_text(face = "plain", size = 16, family = "Arial"),             # Cambia el tamaño del texto del eje y
-    axis.title.x = element_text(face = "plain", size = 17, family = "Arial"),             # Cambia el tamaño del título del eje x
-    axis.title.y = element_text(face = "plain", size = 17, family = "Arial"),              # Cambia el tamaño del título del eje y
+    legend.position = "right",
+    axis.text.x = element_text(face = "plain", size = 16, family = "Arial"),
+    axis.text.y = element_text(face = "plain", size = 16, family = "Arial"),
+    axis.title.x = element_text(face = "plain", size = 17, family = "Arial"),
+    axis.title.y = element_text(face = "plain", size = 17, family = "Arial"),
     strip.text = element_blank()
   ) +
   labs(
     x = "PlantPart", 
-    y = "Alpha diversity (Shannon Index)"
-  ) +
-  scale_color_manual(values = c("Soil" = "#0F6B99", 
-                                "Root"="#FFA500", 
-                                "Shoot" = "#6B990F", 
-                                "Spike"= "#FFDB58",
-                                "Seed" = "#99540F"))
+    y = "Alpha diversity (Shannon Index)",
+    color = "PlantPart",
+    shape = "Wheat Species"
+  )
 
 p
 # Analisis estadistico
@@ -912,5 +924,6 @@ p<- ggplot(df_heat, aes(x = taxon, y = enrich_group, fill = ef_lda)) +
     legend.position = "right"
   )
 p
+
 
 

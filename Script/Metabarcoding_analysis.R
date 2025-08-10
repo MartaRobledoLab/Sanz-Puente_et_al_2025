@@ -576,6 +576,20 @@ adonis_result <- vegan::adonis2(
 print(adonis_result)
 pairwise.adonis2(dist_bray ~ PlantPart, data = meta)
 
+adonis_result <- vegan::adonis2(
+  dist_bray ~ WheatSpecies+PlantPart,
+  data = meta,
+  permutations = 999
+)
+print(adonis_result)
+
+adonis_result <- vegan::adonis2(
+  dist_bray ~ WheatSpecies,
+  data = meta,
+  permutations = 999
+)
+print(adonis_result)
+                                      
 # Obtener proporción de varianza explicada por los dos primeros ejes
 variance_explained <- 100 * ordination_field$values$Relative_eig[1:2]
 names(variance_explained) <- c("PC1", "PC2")
@@ -730,6 +744,19 @@ summary(anova_result)
 #Si sale significativo se hace un test post hoc
 TukeyHSD(anova_result)
 
+shannon_df$WheatSpecies <- sample_data(ps_field)$WheatSpecies
+by(shannon_df$Shannon, shannon_df$WheatSpecies, shapiro.test) 
+#Comprobamos la homogeneidad de las varianzas
+bartlett.test(Shannon ~ WheatSpecies, data = shannon_df)
+#Si son normales, se realiza un Anova
+anova_result <- aov(Shannon ~ WheatSpecies, data = shannon_df)
+summary(anova_result)
+
+shannon_df$WheatSpecies <- sample_data(ps_field)$WheatSpecies
+shannon_df$PlantPart <- sample_data(ps_field)$PlantPart
+anova_result <- aov(Shannon ~ WheatSpecies * PlantPart, data = shannon_df)
+summary(anova_result)
+                                           
 #----FIELD Abundance-Occupancy----
 otu <- otu_table(ps_field)
 
@@ -924,6 +951,7 @@ p<- ggplot(df_heat, aes(x = taxon, y = enrich_group, fill = ef_lda)) +
     legend.position = "right"
   )
 p
+
 
 
 

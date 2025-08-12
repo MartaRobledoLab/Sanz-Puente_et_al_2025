@@ -565,6 +565,7 @@ p <- ggplot(ordination_data_field, aes(x = Axis.1, y = Axis.2, color = PlantPart
   )) +
   theme(legend.position = "right")
 p
+                                      
 #PERMANOVA
 dist_bray <- phyloseq::distance(ps_field, method = "bray")
 meta <- data.frame(sample_data(ps_field))
@@ -951,6 +952,7 @@ p<- ggplot(df_heat, aes(x = taxon, y = enrich_group, fill = ef_lda)) +
     legend.position = "right"
   )
 p
+
 
 
 
